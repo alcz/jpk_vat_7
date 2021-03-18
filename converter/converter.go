@@ -11,6 +11,7 @@ import (
 
 type Converter struct {
 	source    string
+	IsXml     bool
 	SAFTFile  string
 	cipher    *common.Cipher
 	Delimiter string
