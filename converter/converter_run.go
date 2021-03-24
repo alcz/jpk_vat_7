@@ -3,7 +3,7 @@ package converter
 import (
 	"fmt"
 	"os"
-	"path"
+	"path/filepath"
 	"time"
 
 	"github.com/toudi/jpk_vat_7/common"
@@ -59,7 +59,7 @@ func (c *Converter) Run() error {
 	}
 
 	if c.GeneratorOptions.GenerateMetadata {
-		metadataTemplateVars.SourceMetadata.Filename = c.SAFTFileName()
+		metadataTemplateVars.SourceMetadata.Filename = filepath.Base(c.SAFTFileName())
 		if metadataTemplateVars.SourceMetadata.Size, err = common.FileSize(output); err != nil {
 			return fmt.Errorf("Nie udało się obliczyć rozmiaru pliku jpk: %v", err)
 		}
@@ -71,7 +71,7 @@ func (c *Converter) Run() error {
 		}
 
 		// pakowanie pomyślne, możemy dodać metadane.
-		metadataTemplateVars.ArchiveMetadata.Filename = path.Base(c.compressedSAFTFile())
+		metadataTemplateVars.ArchiveMetadata.Filename = filepath.Base(c.compressedSAFTFile())
 		if metadataTemplateVars.ArchiveMetadata.Size, err = common.FileSize(c.compressedSAFTFile()); err != nil {
 			return fmt.Errorf("Nie udało się obliczyć rozmiaru archiwum")
 		}
