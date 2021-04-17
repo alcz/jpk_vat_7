@@ -50,7 +50,7 @@ func statusRun(c *Command) error {
 	// var workdir string
 
 	if c.FlagSet.NArg() == 0 {
-		GenerateCmd.FlagSet.Usage()
+		StatusCmd.FlagSet.Usage()
 	} else {
 		refFileName := c.FlagSet.Arg(0)
 		// workdir = path.Dir(refFileName)
@@ -82,7 +82,7 @@ func statusRun(c *Command) error {
 			statusResponse.Code, statusResponse.Description, statusResponse.Details,
 		)
 
-		if response.StatusCode == 200 {
+		if statusResponse.Code == 200 {
 			UPOFileName := strings.Replace(refFileName, ".ref", "-upo.xml", 1)
 			if downloadPDF {
 				UPOFileName = strings.Replace(refFileName, ".ref", "-upo.pdf", 1)

@@ -10,8 +10,15 @@ import (
 
 func (u *Uploader) uploadFileToAzureBlob(saftSessionParams *initUploadSignedResponseType) error {
 	var err error
+	var uploadedFile string
 
-	uploadedFile := path.Join(u.workdir, saftMetadata.FileName+".aes")
+	if len(saftMetadata.FileName) > 0 {
+		uploadedFile = path.Join(u.workdir, saftMetadata.FileName+".aes")
+	} else if len(saftMetadata.SignedFileName) > 0 {
+		uploadedFile = path.Join(u.workdir, saftMetadata.FileName+".aes")
+	} else {
+		uploadedFile = u.saftZipAesFile()
+	}
 
 	fileBytes, err := ioutil.ReadFile(uploadedFile)
 	if err != nil {

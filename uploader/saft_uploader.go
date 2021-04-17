@@ -42,7 +42,11 @@ func (u *Uploader) UploadSAFTFile() error {
 }
 
 func (u *Uploader) saftRefNoFile() string {
-	return path.Join(u.workdir, strings.TrimSuffix(path.Base(u.sourceFile), ".xml")+".ref")
+	return path.Join(u.workdir, strings.TrimSuffix(path.Base(u.sourceFile), "-metadata.xml")+".ref")
+}
+
+func (u *Uploader) saftZipAesFile() string {
+	return path.Join(u.workdir, strings.TrimSuffix(path.Base(u.sourceFile), "-metadata.xml")+".zip.aes")
 }
 
 func (u *Uploader) gatewayURL() string {
