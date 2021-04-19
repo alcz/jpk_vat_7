@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"path"
+	"path/filepath"
 )
 
 func (c *Converter) compressSAFTFile() error {
@@ -33,7 +33,7 @@ func (c *Converter) compressSAFTFile() error {
 
 func addFileToZip(zipWriter *zip.Writer, filename string) error {
 	var err error
-	fileEntry, err := zipWriter.Create(path.Base(filename))
+	fileEntry, err := zipWriter.Create(filepath.Base(filename))
 	if err != nil {
 		return err
 	}
