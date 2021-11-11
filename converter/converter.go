@@ -47,6 +47,7 @@ type SAFTMetadataTemplateVars struct {
 	Metadata struct {
 		SchemaVersion string
 		SystemCode    string
+		FormCode      string
 	}
 
 	// dane poszczególnych plików, potrzebne do wygenerowania pliku metadanych
