@@ -17,7 +17,7 @@ type statusCommand struct {
 }
 
 var StatusCmd *statusCommand
-var UpoDownloadURL = "https://e-mikrofirma.mf.gov.pl/jpk-client/api/status/%s/pdf"
+var UpoDownloadURL = "https://e-mikrofirma.mf.gov.pl/jpk-client-2-api/api/upo/pdf/%s"
 
 type statusResponseType struct {
 	Code        int
@@ -82,7 +82,7 @@ func statusRun(c *Command) error {
 			statusResponse.Code, statusResponse.Description, statusResponse.Details,
 		)
 
-		if statusResponse.Code == 200 {
+		if response.StatusCode == 200 && statusResponse.Code == 200 {
 			UPOFileName := strings.Replace(refFileName, ".ref", "-upo.xml", 1)
 			if downloadPDF {
 				UPOFileName = strings.Replace(refFileName, ".ref", "-upo.pdf", 1)
@@ -95,6 +95,7 @@ func statusRun(c *Command) error {
 					if err != nil {
 						return fmt.Errorf("Nie udało się zainicjować pobierania UPO")
 					}
+
 					upoDownloadResponse, err := httpClient.Do(upoDownloadReq)
 					if err != nil {
 						return fmt.Errorf("Nie udało się pobrać UPO")
